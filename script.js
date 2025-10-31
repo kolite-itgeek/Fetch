@@ -1,13 +1,11 @@
 
 async function fetchUsersAndSummarize() {
-  // My fixed url to fetch user data
   const url = 'https://jsonplaceholder.typicode.com/users';
 
   return fetch(url)
     // Chain 1... to check response and throw if status is NOT 200
     .then(response => {
 
-      // My conditional statement to check status exactly as requested
       if (response.status !== 200) {
 
         throw new Error(`Fetch failed: status code ${response.status}`);
@@ -16,9 +14,9 @@ async function fetchUsersAndSummarize() {
       return response;
     })
 
-    // Chain 2... to JSON
+    
     .then(response => response.json())
-    // Final .then(): to process users(array)
+   
     
     .then(users => {
 
@@ -56,14 +54,13 @@ function testError() {
   const badUrl = 'https://jsonplaceholder.typicode.com/u5ers';
   fetch(badUrl)
     .then(response => {
-      // If endpoint exists but returns non-200, throw a custom error
+      
       if (response.status !== 200) {
         throw new Error(`Bad URL request failed: status ${response.status}`);
       }
       return response.json();
     })
     .then(data => {
-      // If by some miracle it returned 200, log the data
       console.log('Unexpected success:', data);
     })
     .catch(err => {
